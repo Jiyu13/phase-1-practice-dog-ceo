@@ -2,6 +2,8 @@ console.log('%c HI', 'color: firebrick')
 
 const breedUrl = "https://dog.ceo/api/breeds/list/all";
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
+const letters = ["e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
 
 
 // <script> in <head>, add DOMContentLoaded
@@ -9,12 +11,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const imgDiv = event.target.getElementById("dog-image-container")
     const ul = event.target.querySelector("#dog-breeds")
 
+
     // filter breeds
     const select = event.target.querySelector("#breed-dropdown")
+    letters.forEach(letter => {
+        const option = document.createElement("option")
+        option.setAttribute("value", letter)
+        option.textContent = letter
+        select.append(option)
+    })
+
+    
+
     const liObj = ul.getElementsByTagName("li")    
     select.addEventListener("change", (event)=>{
         const currentOption = event.target.value
-        // console.log(currentOption)
+        console.log(currentOption)
+        filter(currentOption)
+        
+    })
+    
+    function filter(currentOption) {
         for (i = 0; i < liObj.length; i++) {
             console.log(liObj[i].textContent[0])
             if (liObj[i].textContent[0] === currentOption) {
@@ -23,7 +40,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 liObj[i].style.display = "none"
             }
         }
-    })
+    }
 
     getImages().then(imageData => renderImages(imageData))
     
@@ -60,7 +77,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 })
 
             }
-
+            filter("a")  // first loads all "a"
         })
     }
     renderBreeds()
