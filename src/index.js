@@ -31,10 +31,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .then(breedsData => {
             const breedsMessage = breedsData["message"]
             // console.log(typeof breedsMessage)   // object
+            let liId = 0
             for (each in breedsMessage) {
+                liId += 1
                 const li = event.target.createElement("li")
+                li.id = liId
                 li.textContent = each
                 breedsUl.append(li)
+
+                // change li color when click
+                li.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    li.style.backgroundColor = "#8DCBE6"
+                })
+
             }
         })
     }
