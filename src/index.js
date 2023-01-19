@@ -7,11 +7,26 @@ const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
 // <script> in <head>, add DOMContentLoaded
 document.addEventListener("DOMContentLoaded", (event) => {
     const imgDiv = event.target.getElementById("dog-image-container")
-    const breedsUl = event.target.querySelector("#dog-breeds")
+    const ul = event.target.querySelector("#dog-breeds")
 
+    // filter breeds
+    const select = event.target.querySelector("#breed-dropdown")
+    const liObj = ul.getElementsByTagName("li")    
+    select.addEventListener("change", (event)=>{
+        const currentOption = event.target.value
+        // console.log(currentOption)
+        for (i = 0; i < liObj.length; i++) {
+            console.log(liObj[i].textContent[0])
+            if (liObj[i].textContent[0] === currentOption) {
+                liObj[i].style.display = ""
+            } else {
+                liObj[i].style.display = "none"
+            }
+        }
+    })
 
     getImages().then(imageData => renderImages(imageData))
-
+    
     // render image
     function renderImages(imageData) {
         const imgURLs  = imageData["message"]
@@ -37,18 +52,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const li = event.target.createElement("li")
                 li.id = liId
                 li.textContent = each
-                breedsUl.append(li)
+                ul.append(li)
 
                 // change li color when click
                 li.addEventListener("click", (e) => {
-                    e.preventDefault()
                     li.style.backgroundColor = "#8DCBE6"
                 })
 
             }
+
         })
     }
-
     renderBreeds()
 })
 
