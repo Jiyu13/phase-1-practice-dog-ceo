@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const defaultOption = document.createElement("option")
     defaultOption.setAttribute("value", "select")
     select.prepend(defaultOption)
-    console.log("default")
+    
     
     letters.forEach(letter => {
         const option = document.createElement("option")
@@ -70,11 +70,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 li.textContent = each
                 ul.append(li)
 
-                // change li color when click
-                li.addEventListener("click", (e) => {
-                    li.style.backgroundColor = "#8DCBE6"
+                // // change li color when click
+                // li.addEventListener("click", (e) => {
+                //     li.style.backgroundColor = "#8DCBE6"
+                
+                // })
+            }
+            // change bgcolor while being selected
+            let lists = ul.querySelectorAll("li");
+            lists.forEach(list => {
+                list.addEventListener("click", () => {
+                    lists.forEach(l => l.style.backgroundColor = "")
+                    list.style.backgroundColor = "#8DCBE6"
                 })
-            }   
+
+            })
         })
     }
     renderBreeds()
