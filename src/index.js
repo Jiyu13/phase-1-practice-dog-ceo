@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // filter breeds
     const select = event.target.querySelector("#breed-dropdown")
+    const defaultOption = document.createElement("option")
+    defaultOption.setAttribute("value", "select")
+    select.prepend(defaultOption)
+    console.log("default")
+    
     letters.forEach(letter => {
         const option = document.createElement("option")
         option.setAttribute("value", letter)
@@ -21,23 +26,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
         select.append(option)
     })
 
-    
-
     const liObj = ul.getElementsByTagName("li")    
     select.addEventListener("change", (event)=>{
         const currentOption = event.target.value
-        console.log(currentOption)
         filter(currentOption)
         
     })
     
     function filter(currentOption) {
         for (i = 0; i < liObj.length; i++) {
-            console.log(liObj[i].textContent[0])
-            if (liObj[i].textContent[0] === currentOption) {
-                liObj[i].style.display = ""
+            if (currentOption === "select") {
+                liObj[i].style.display = ""   // show all 
+            } else if (liObj[i].textContent[0] === currentOption) {
+                liObj[i].style.display = ""  // to show element
             } else {
-                liObj[i].style.display = "none"
+                liObj[i].style.display = "none"  // to hide element
             }
         }
     }
@@ -50,7 +53,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         imgURLs.forEach(url => {
             const createImg = document.createElement("img")
             createImg.src = url
-            // console.log(createImg)
             imgDiv.append(createImg)
         })
     }
@@ -62,12 +64,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .then(response => response.json())
         .then(breedsData => {
             const breedsMessage = breedsData["message"]
-            // console.log(typeof breedsMessage)   // object
-            let liId = 0
+            
             for (each in breedsMessage) {
-                liId += 1
                 const li = event.target.createElement("li")
-                li.id = liId
                 li.textContent = each
                 ul.append(li)
 
@@ -75,9 +74,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 li.addEventListener("click", (e) => {
                     li.style.backgroundColor = "#8DCBE6"
                 })
-
-            }
-            filter("a")  // first loads all "a"
+            }   
         })
     }
     renderBreeds()
