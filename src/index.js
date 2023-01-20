@@ -1,5 +1,3 @@
-console.log('%c HI', 'color: firebrick')
-
 const breedUrl = "https://dog.ceo/api/breeds/list/all";
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
 const letters = ["e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -69,13 +67,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const li = event.target.createElement("li")
                 li.textContent = each
                 ul.append(li)
-
-                // // change li color when click
-                // li.addEventListener("click", (e) => {
-                //     li.style.backgroundColor = "#8DCBE6"
-                
-                // })
             }
+
             // change bgcolor while being selected
             let lists = ul.querySelectorAll("li");
             lists.forEach(list => {
